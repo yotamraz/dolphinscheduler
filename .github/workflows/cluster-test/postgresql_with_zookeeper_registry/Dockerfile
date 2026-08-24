@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-FROM eclipse-temurin:8-jre
+FROM eclipse-temurin:17-jre
 
 RUN apt update ; \
     apt install -y wget sudo openssh-server netcat-traditional ;

@@ -21,7 +21,7 @@ set -euox pipefail
 docker compose -f .github/workflows/cluster-test/postgresql_with_zookeeper_registry/docker-compose-base.yaml up -d
 
 #Build ds postgresql cluster image
-docker build -t jdk8:ds_postgresql_cluster -f .github/workflows/cluster-test/postgresql_with_zookeeper_registry/Dockerfile .
+docker build -t jdk17:ds_postgresql_cluster -f .github/workflows/cluster-test/postgresql_with_zookeeper_registry/Dockerfile .
 
 #Start ds postgresql cluster container
 docker compose -f .github/workflows/cluster-test/postgresql_with_zookeeper_registry/docker-compose-cluster.yaml up -d

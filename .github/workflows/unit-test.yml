@@ -98,7 +98,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        java: [ '8', '11' ]
+        java: [ '17' ]
         module: ${{ fromJSON(needs.generate-matrix.outputs.matrix).module }}
     timeout-minutes: 60
     steps:

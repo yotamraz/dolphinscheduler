@@ -20,7 +20,7 @@ version: "3"
 services:
   ds:
     container_name: ds
-    image: jdk8:ds_mysql_cluster
+    image: jdk17:ds_mysql_cluster
     restart: always
     volumes:
       - ${HOME}/ds_test/master-server/logs:/root/apache-dolphinscheduler-test-SNAPSHOT-bin/master-server/logs
