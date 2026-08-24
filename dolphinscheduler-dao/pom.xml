@@ -90,7 +90,17 @@
                     <groupId>org.apache.logging.log4j</groupId>
                     <artifactId>log4j-to-slf4j</artifactId>
                 </exclusion>
+                <!-- Exclude old mybatis-spring 2.x; BOM re-adds 3.0.4 for Spring Framework 6.x compatibility -->
+                <exclusion>
+                    <groupId>org.mybatis</groupId>
+                    <artifactId>mybatis-spring</artifactId>
+                </exclusion>
             </exclusions>
+        </dependency>
+        <!-- mybatis-spring 3.0.4 for Spring Framework 6.x compatibility -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
         </dependency>
 
         <dependency>
