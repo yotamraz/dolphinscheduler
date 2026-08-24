@@ -47,13 +47,15 @@ public class DefaultMetricsProvider implements MetricsProvider {
             return systemMetrics;
         }
 
-        double systemCpuUsage = meterRegistry.get("system.cpu.usage").gauge().value();
+        io.micrometer.core.instrument.Gauge systemCpuGauge = meterRegistry.find("system.cpu.usage").gauge();
+        double systemCpuUsage = systemCpuGauge != null ? systemCpuGauge.value() : Double.NaN;
         if (Double.compare(systemCpuUsage, Double.NaN) == 0) {
             systemCpuUsage = lastSystemCpuUsage;
         } else {
             lastSystemCpuUsage = systemCpuUsage;
         }
-        double processCpuUsage = meterRegistry.get("process.cpu.usage").gauge().value();
+        io.micrometer.core.instrument.Gauge processCpuGauge = meterRegistry.find("process.cpu.usage").gauge();
+        double processCpuUsage = processCpuGauge != null ? processCpuGauge.value() : Double.NaN;
         if (Double.compare(processCpuUsage, Double.NaN) == 0) {
             processCpuUsage = lastProcessCpuUsage;
         } else {
@@ -77,8 +79,10 @@ public class DefaultMetricsProvider implements MetricsProvider {
         long totalSystemMemory = OSUtils.getTotalSystemMemory();
         long systemMemoryAvailable = OSUtils.getSystemAvailableMemoryUsed();
 
-        double diskToTalBytes = meterRegistry.get("disk.total").gauge().value();
-        double diskFreeBytes = meterRegistry.get("disk.free").gauge().value();
+        io.micrometer.core.instrument.Gauge diskTotalGauge = meterRegistry.find("disk.total").gauge();
+        double diskToTalBytes = diskTotalGauge != null ? diskTotalGauge.value() : 0.0;
+        io.micrometer.core.instrument.Gauge diskFreeGauge = meterRegistry.find("disk.free").gauge();
+        double diskFreeBytes = diskFreeGauge != null ? diskFreeGauge.value() : 0.0;
 
         systemMetrics = SystemMetrics.builder()
                 .systemCpuUsagePercentage(systemCpuUsage)
