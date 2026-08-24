@@ -54,7 +54,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
