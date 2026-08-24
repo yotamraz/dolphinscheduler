@@ -28,7 +28,7 @@
     <name>${project.artifactId}</name>
 
     <properties>
-        <netty.version>4.1.110.Final</netty.version>
+        <netty.version>4.1.122.Final</netty.version>
         <spring-boot.version>3.5.3</spring-boot.version>
         <spring-ldap.version>2.4.1</spring-ldap.version>
         <mybatis-plus.version>3.5.10</mybatis-plus.version>
