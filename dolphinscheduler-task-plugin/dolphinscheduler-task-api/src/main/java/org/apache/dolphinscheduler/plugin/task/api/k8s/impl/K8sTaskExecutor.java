@@ -183,7 +183,7 @@ public class K8sTaskExecutor extends AbstractK8sTaskExecutor {
                 .withCommand(commands.size() == 0 ? null : commands)
                 .withArgs(args.size() == 0 ? null : args)
                 .withImagePullPolicy(imagePullPolicy)
-                .withResources(new ResourceRequirements(limitRes, reqRes))
+                .withResources(new ResourceRequirements(null, limitRes, reqRes))
                 .withEnv(envVars)
                 .endContainer()
                 .withImagePullSecrets(

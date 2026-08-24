@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import jakarta.annotation.concurrent.NotThreadSafe;
+import javax.annotation.concurrent.NotThreadSafe;
 
 import lombok.extern.slf4j.Slf4j;
 
