@@ -20,7 +20,7 @@ package org.apache.dolphinscheduler.api.configuration;
 import org.apache.dolphinscheduler.dao.entity.DsVersion;
 import org.apache.dolphinscheduler.dao.repository.DsVersionDao;
 
-import org.springdoc.core.GroupedOpenApi;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
