@@ -67,9 +67,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
-  mvc:
-    pathmatch:
-      matching-strategy: ANT_PATH_MATCHER
   cloud.discovery.client.composite-indicator.enabled: false
 
 scheduler-plugin:
