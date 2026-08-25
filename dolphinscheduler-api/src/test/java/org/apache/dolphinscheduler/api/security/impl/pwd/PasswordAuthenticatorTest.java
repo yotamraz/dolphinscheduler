@@ -31,7 +31,7 @@ import org.apache.dolphinscheduler.dao.entity.User;
 import java.util.Date;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

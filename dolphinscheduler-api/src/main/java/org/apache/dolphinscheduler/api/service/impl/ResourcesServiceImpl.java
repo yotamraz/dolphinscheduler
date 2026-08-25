@@ -84,7 +84,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;

@@ -29,7 +29,7 @@ import org.apache.dolphinscheduler.dao.entity.User;
 
 import java.util.List;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
