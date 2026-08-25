@@ -27,11 +27,11 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Conditional;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 @Conditional(MysqlDatabaseEnvironmentCondition.class)
 public class MysqlDaoPluginAutoConfiguration implements DaoPluginConfiguration {
 

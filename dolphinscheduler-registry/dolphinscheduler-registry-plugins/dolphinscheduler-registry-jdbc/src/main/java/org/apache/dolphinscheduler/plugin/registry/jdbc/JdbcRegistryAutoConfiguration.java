@@ -37,7 +37,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
@@ -48,7 +48,7 @@ import com.zaxxer.hikari.HikariDataSource;
 
 @Slf4j
 @ComponentScan
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 @MapperScan("org.apache.dolphinscheduler.plugin.registry.jdbc.mapper")
 @ConditionalOnProperty(prefix = "registry", name = "type", havingValue = "jdbc")
 @AutoConfigureAfter(MybatisPlusAutoConfiguration.class)
