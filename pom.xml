@@ -477,6 +477,7 @@
                     <configuration>
                         <release>17</release>
                         <encoding>${project.build.sourceEncoding}</encoding>
+                        <parameters>true</parameters>
                     </configuration>
                 </plugin>
 
@@ -614,6 +615,7 @@
                 <configuration>
                     <release>17</release>
                     <encoding>${project.build.sourceEncoding}</encoding>
+                    <parameters>true</parameters>
                 </configuration>
             </plugin>
             <plugin>
