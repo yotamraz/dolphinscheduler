@@ -60,13 +60,11 @@ class TestActuatorMetrics:
     def test_specific_metric_detail(self):
         """Drill into system.cpu.usage to verify it has a valid value structure."""
         resp = requests.get(f"{METRICS_URL}/system.cpu.usage", timeout=10)
-        # The metric may return 200 or 404 if value is 0 in some environments
-        assert resp.status_code in (200, 404), \
+        assert resp.status_code == 200, \
             f"Unexpected status for system.cpu.usage detail: {resp.status_code}"
-        if resp.status_code == 200:
-            body = resp.json()
-            assert "measurements" in body, \
-                f"measurements missing from metric detail: {body}"
+        body = resp.json()
+        assert "measurements" in body, \
+            f"measurements missing from metric detail: {body}"
 
     def test_hikaricp_metrics_registered(self):
         """HikariCP connection pool metrics should appear (H2 pool is active)."""
@@ -94,17 +92,15 @@ class TestAutoConfigurationLoading:
     bootstrapped its subsystem successfully).
     """
 
-    EXPECTED_AUTOCONFIGS = [
-        ("dolphinscheduler-meter", "MeterAutoConfiguration"),
-        ("dolphinscheduler-actuator-authentication", "ActuatorAuthenticationAutoConfiguration"),
-        ("dolphinscheduler-dao-h2", "H2DaoPluginAutoConfiguration"),
-        ("dolphinscheduler-dao-mysql", "MysqlDaoPluginAutoConfiguration"),
-        ("dolphinscheduler-dao-postgresql", "PostgresqlDaoPluginAutoConfiguration"),
-        ("dolphinscheduler-scheduler-quartz", "QuartzSchedulerAutoConfiguration"),
-        ("dolphinscheduler-registry-zookeeper", "ZookeeperRegistryAutoConfiguration"),
-        ("dolphinscheduler-registry-jdbc", "JdbcRegistryAutoConfiguration"),
-        ("dolphinscheduler-registry-etcd", "EtcdRegistryAutoConfiguration"),
-    ]
+    @staticmethod
+    def _read_file(path):
+        """Read a file's contents, failing the test with a clear message on IOError."""
+        import pytest
+        try:
+            with open(path) as fh:
+                return fh.read()
+        except OSError as e:
+            pytest.fail(f"Could not read AutoConfiguration.imports file {path}: {e}")
 
     def _find_imports_files(self):
         """Find all AutoConfiguration.imports files in the source tree."""
@@ -127,31 +123,31 @@ class TestAutoConfigurationLoading:
 
     def test_meter_autoconfig_registered(self):
         files = self._find_imports_files()
-        content = "\n".join(open(f).read() for f in files if f)
+        content = "\n".join(self._read_file(f) for f in files if f)
         assert "MeterAutoConfiguration" in content, \
             "MeterAutoConfiguration not found in any AutoConfiguration.imports file"
 
     def test_actuator_auth_autoconfig_registered(self):
         files = self._find_imports_files()
-        content = "\n".join(open(f).read() for f in files if f)
+        content = "\n".join(self._read_file(f) for f in files if f)
         assert "ActuatorAuthenticationAutoConfiguration" in content, \
             "ActuatorAuthenticationAutoConfiguration not found in any AutoConfiguration.imports file"
 
     def test_h2_dao_autoconfig_registered(self):
         files = self._find_imports_files()
-        content = "\n".join(open(f).read() for f in files if f)
+        content = "\n".join(self._read_file(f) for f in files if f)
         assert "H2DaoPluginAutoConfiguration" in content, \
             "H2DaoPluginAutoConfiguration not found in any AutoConfiguration.imports file"
 
     def test_quartz_autoconfig_registered(self):
         files = self._find_imports_files()
-        content = "\n".join(open(f).read() for f in files if f)
+        content = "\n".join(self._read_file(f) for f in files if f)
         assert "QuartzSchedulerAutoConfiguration" in content, \
             "QuartzSchedulerAutoConfiguration not found in any AutoConfiguration.imports file"
 
     def test_jdbc_registry_autoconfig_registered(self):
         files = self._find_imports_files()
-        content = "\n".join(open(f).read() for f in files if f)
+        content = "\n".join(self._read_file(f) for f in files if f)
         assert "JdbcRegistryAutoConfiguration" in content, \
             "JdbcRegistryAutoConfiguration not found in any AutoConfiguration.imports file"
 
