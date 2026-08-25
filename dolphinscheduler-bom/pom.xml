@@ -50,7 +50,7 @@
         <commons-collections4.version>4.5.0</commons-collections4.version>
         <httpclient.version>4.5.13</httpclient.version>
         <httpcore.version>4.4.15</httpcore.version>
-        <jackson.version>2.13.4</jackson.version>
+        <!-- jackson version is managed by Spring Boot BOM (jackson-bom 2.21.4 via spring-boot-dependencies 3.5.x) -->
         <protostuff.version>1.7.2</protostuff.version>
         <byte-buddy.version>1.12.11</byte-buddy.version>
         <hadoop.version>3.2.4</hadoop.version>
@@ -424,27 +424,7 @@
                 <artifactId>httpcore</artifactId>
                 <version>${httpcore.version}</version>
             </dependency>
-            <!-- jackson -->
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-annotations</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-core</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.datatype</groupId>
-                <artifactId>jackson-datatype-jsr310</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
+            <!-- jackson versions are managed by Spring Boot BOM (jackson-bom 2.21.4) — no explicit pins needed -->
             <!--protostuff-->
             <dependency>
                 <groupId>io.protostuff</groupId>
