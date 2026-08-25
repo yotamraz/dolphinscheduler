@@ -29,9 +29,9 @@
 
     <properties>
         <netty.version>4.1.53.Final</netty.version>
-        <spring-boot.version>2.7.11</spring-boot.version>
+        <spring-boot.version>3.5.16</spring-boot.version>
         <spring-ldap.version>2.4.1</spring-ldap.version>
-        <mybatis-plus.version>3.5.2</mybatis-plus.version>
+        <mybatis-plus.version>3.5.9</mybatis-plus.version>
         <quartz.version>2.3.2</quartz.version>
         <druid.version>1.2.20</druid.version>
         <curator-test.version>2.12.0</curator-test.version>
@@ -53,7 +53,6 @@
         <jackson.version>2.13.4</jackson.version>
         <protostuff.version>1.7.2</protostuff.version>
         <byte-buddy.version>1.12.11</byte-buddy.version>
-        <logback.version>1.2.11</logback.version>
         <hadoop.version>3.2.4</hadoop.version>
         <cron-utils.version>9.1.6</cron-utils.version>
         <h2.version>2.2.220</h2.version>
@@ -63,9 +62,7 @@
         <oracle-jdbc.version>21.5.0.0</oracle-jdbc.version>
         <dameng-jdbc.version>8.1.2.79</dameng-jdbc.version>
         <ngdbc.version>2.4.51</ngdbc.version>
-        <slf4j.version>1.7.36</slf4j.version>
         <poi.version>5.4.1</poi.version>
-        <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
         <activation.version>1.1</activation.version>
         <javax-mail>1.6.2</javax-mail>
         <guava.version>31.1-jre</guava.version>
@@ -86,12 +83,11 @@
         <jsr305.version>3.0.0</jsr305.version>
         <commons-compress.version>1.27.1</commons-compress.version>
         <commons-math3.version>3.6.1</commons-math3.version>
-        <hibernate-validator.version>6.2.2.Final</hibernate-validator.version>
         <aws-sdk.version>1.12.300</aws-sdk.version>
         <aliyun-sdk-oss.version>3.15.1</aliyun-sdk-oss.version>
         <joda-time.version>2.10.13</joda-time.version>
         <okhttp.version>4.12.0</okhttp.version>
-        <spring-cloud-dependencies.version>2021.0.3</spring-cloud-dependencies.version>
+        <spring-cloud-dependencies.version>2025.0.1</spring-cloud-dependencies.version>
         <gson.version>2.9.1</gson.version>
         <dropwizard.metrics-version>4.2.11</dropwizard.metrics-version>
         <snappy.version>1.1.10.1</snappy.version>
@@ -99,7 +95,7 @@
         <snakeyaml.version>1.33</snakeyaml.version>
         <htrace.version>4.1.1</htrace.version>
         <datasync.version>2.17.282</datasync.version>
-        <springdoc-openapi-ui.version>1.6.9</springdoc-openapi-ui.version>
+        <springdoc-openapi.version>2.9.0</springdoc-openapi.version>
         <aspectj.version>1.9.7</aspectj.version>
         <trino-jdbc.version>402</trino-jdbc.version>
         <azure-identity.version>1.7.1</azure-identity.version>
@@ -252,7 +248,7 @@
             <!-- mybatis -->
             <dependency>
                 <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
             <dependency>
@@ -502,28 +498,7 @@
                 <scope>test</scope>
             </dependency>
 
-            <!-- sl4j -->
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-log4j12</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-            <!-- logback -->
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>${logback.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-core</artifactId>
-                <version>${logback.version}</version>
-            </dependency>
+            <!-- sl4j and logback versions are managed by Spring Boot BOM -->
 
             <!--excel poi-->
             <dependency>
@@ -702,12 +677,6 @@
             </dependency>
 
             <dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>javax.servlet-api</artifactId>
-                <version>${javax.servlet-api.version}</version>
-            </dependency>
-
-            <dependency>
                 <groupId>com.github.rholder</groupId>
                 <artifactId>guava-retrying</artifactId>
                 <version>${guava-retry.version}</version>
@@ -742,12 +711,7 @@
                 <version>${commons-math3.version}</version>
             </dependency>
 
-            <!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
-            <dependency>
-                <groupId>org.hibernate.validator</groupId>
-                <artifactId>hibernate-validator</artifactId>
-                <version>${hibernate-validator.version}</version>
-            </dependency>
+            <!-- hibernate-validator version is managed by Spring Boot BOM -->
 
             <dependency>
                 <groupId>com.amazonaws</groupId>
@@ -868,8 +832,8 @@
 
             <dependency>
                 <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-ui</artifactId>
-                <version>${springdoc-openapi-ui.version}</version>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>${springdoc-openapi.version}</version>
             </dependency>
 
             <dependency>
