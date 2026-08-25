@@ -92,7 +92,6 @@
         <dropwizard.metrics-version>4.2.11</dropwizard.metrics-version>
         <snappy.version>1.1.10.1</snappy.version>
         <janino.version>3.0.16</janino.version>
-        <snakeyaml.version>1.33</snakeyaml.version>
         <htrace.version>4.1.1</htrace.version>
         <datasync.version>2.17.282</datasync.version>
         <springdoc-openapi.version>2.9.0</springdoc-openapi.version>
@@ -829,11 +828,7 @@
                 <artifactId>janino</artifactId>
                 <version>${janino.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.yaml</groupId>
-                <artifactId>snakeyaml</artifactId>
-                <version>${snakeyaml.version}</version>
-            </dependency>
+            <!-- snakeyaml version is managed by Spring Boot BOM -->
             <!-- https://mvnrepository.com/artifact/software.amazon.awssdk/datasync -->
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
