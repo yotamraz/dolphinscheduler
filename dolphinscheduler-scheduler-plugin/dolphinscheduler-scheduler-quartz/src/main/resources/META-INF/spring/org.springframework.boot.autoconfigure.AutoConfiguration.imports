@@ -1,0 +1,2 @@
+org.apache.dolphinscheduler.scheduler.quartz.QuartzSchedulerDataSourceAutoConfiguration
+org.apache.dolphinscheduler.scheduler.quartz.QuartzSchedulerAutoConfiguration
