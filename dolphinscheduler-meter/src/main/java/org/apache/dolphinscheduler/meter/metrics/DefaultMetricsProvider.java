@@ -38,6 +38,8 @@ public class DefaultMetricsProvider implements MetricsProvider {
 
     private double lastSystemCpuUsage = 0.0d;
     private double lastProcessCpuUsage = 0.0d;
+    private double lastDiskTotalBytes = 1.0d;
+    private double lastDiskFreeBytes = 1.0d;
 
     private static final long SYSTEM_METRICS_REFRESH_INTERVAL = 1_000L;
 
@@ -88,8 +90,10 @@ public class DefaultMetricsProvider implements MetricsProvider {
         long totalSystemMemory = OSUtils.getTotalSystemMemory();
         long systemMemoryAvailable = OSUtils.getSystemAvailableMemoryUsed();
 
-        double diskToTalBytes = gaugeOrFallback("disk.total", 1.0);
-        double diskFreeBytes = gaugeOrFallback("disk.free", 0.0);
+        double diskToTalBytes = gaugeOrFallback("disk.total", lastDiskTotalBytes);
+        lastDiskTotalBytes = diskToTalBytes;
+        double diskFreeBytes = gaugeOrFallback("disk.free", lastDiskFreeBytes);
+        lastDiskFreeBytes = diskFreeBytes;
 
         systemMetrics = SystemMetrics.builder()
                 .systemCpuUsagePercentage(systemCpuUsage)
@@ -103,7 +107,7 @@ public class DefaultMetricsProvider implements MetricsProvider {
                 .jvmMemoryUsedPercentage(jvmMemoryUsedPercentage)
                 .systemMemoryUsed(totalSystemMemory - systemMemoryAvailable)
                 .systemMemoryMax(totalSystemMemory)
-                .systemMemoryUsedPercentage((double) (totalSystemMemory - systemMemoryAvailable) / totalSystemMemory)
+                .systemMemoryUsedPercentage(totalSystemMemory > 0 ? (double) (totalSystemMemory - systemMemoryAvailable) / totalSystemMemory : 0.0)
                 .diskUsed(diskToTalBytes - diskFreeBytes)
                 .diskTotal(diskToTalBytes)
                 .diskUsedPercentage((diskToTalBytes - diskFreeBytes) / diskToTalBytes)
