@@ -78,9 +78,21 @@
                     <groupId>javax.servlet</groupId>
                     <artifactId>servlet-api</artifactId>
                 </exclusion>
+                <!-- Exclude old javax.servlet-api pulled in by hadoop-common 3.2.4;
+                     Spring Boot 3.5 / Jetty 12 uses jakarta.servlet-api 6.x -->
                 <exclusion>
                     <groupId>javax.servlet</groupId>
-                    <artifactId>servlet-api</artifactId>
+                    <artifactId>javax.servlet-api</artifactId>
+                </exclusion>
+                <!-- Exclude Jetty 9.4 artifacts pulled in by hadoop-common 3.2.4;
+                     they conflict with Jetty 12 (EE10) used by Spring Boot 3.5 -->
+                <exclusion>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-servlet</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-webapp</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>log4j</groupId>
