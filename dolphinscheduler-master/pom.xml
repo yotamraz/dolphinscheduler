@@ -150,11 +150,19 @@
                     <groupId>javax.servlet</groupId>
                     <artifactId>servlet-api</artifactId>
                 </exclusion>
-                <!-- Exclude old javax.servlet-api pulled in transitively via hadoop-yarn-common;
+                <!-- Exclude old javax.servlet-api and Jetty 9.4 artifacts pulled in transitively via hadoop-yarn-common;
                      Spring Boot 3.5 / Jetty 12 uses jakarta.servlet-api 6.x -->
                 <exclusion>
                     <groupId>javax.servlet</groupId>
                     <artifactId>javax.servlet-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-servlet</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-webapp</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>org.codehaus.jackson</groupId>
