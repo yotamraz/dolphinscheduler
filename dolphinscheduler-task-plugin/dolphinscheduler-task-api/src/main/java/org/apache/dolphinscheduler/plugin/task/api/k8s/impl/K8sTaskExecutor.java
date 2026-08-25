@@ -70,6 +70,7 @@ import io.fabric8.kubernetes.api.model.LocalObjectReference;
 import io.fabric8.kubernetes.api.model.NodeSelectorTerm;
 import io.fabric8.kubernetes.api.model.Quantity;
 import io.fabric8.kubernetes.api.model.ResourceRequirements;
+import io.fabric8.kubernetes.api.model.ResourceRequirementsBuilder;
 import io.fabric8.kubernetes.api.model.batch.v1.Job;
 import io.fabric8.kubernetes.api.model.batch.v1.JobBuilder;
 import io.fabric8.kubernetes.api.model.batch.v1.JobStatus;
@@ -183,7 +184,7 @@ public class K8sTaskExecutor extends AbstractK8sTaskExecutor {
                 .withCommand(commands.size() == 0 ? null : commands)
                 .withArgs(args.size() == 0 ? null : args)
                 .withImagePullPolicy(imagePullPolicy)
-                .withResources(new ResourceRequirements(limitRes, reqRes))
+                .withResources(new ResourceRequirementsBuilder().withLimits(limitRes).withRequests(reqRes).build())
                 .withEnv(envVars)
                 .endContainer()
                 .withImagePullSecrets(
