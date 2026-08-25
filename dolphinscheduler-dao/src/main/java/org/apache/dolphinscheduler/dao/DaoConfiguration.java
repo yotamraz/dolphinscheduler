@@ -34,6 +34,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 
 @Configuration
 @ComponentScan("org.apache.dolphinscheduler.dao")
@@ -54,8 +55,10 @@ public class DaoConfiguration {
     public DaoPluginConfiguration daoPluginConfiguration;
 
     @Bean
-    public MybatisPlusInterceptor mybatisPlusInterceptor() {
-        return new MybatisPlusInterceptor();
+    public MybatisPlusInterceptor mybatisPlusInterceptor(DbType dbType) {
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(dbType));
+        return interceptor;
     }
 
     @Bean
