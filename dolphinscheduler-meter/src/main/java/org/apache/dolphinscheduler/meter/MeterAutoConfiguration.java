@@ -20,7 +20,7 @@ package org.apache.dolphinscheduler.meter;
 import org.apache.dolphinscheduler.meter.metrics.DefaultMetricsProvider;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import io.micrometer.core.aop.CountedAspect;
@@ -39,7 +39,7 @@ import io.micrometer.core.instrument.MeterRegistry;
  *     }
  * </pre>
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 @EnableAspectJAutoProxy
 public class MeterAutoConfiguration {
 

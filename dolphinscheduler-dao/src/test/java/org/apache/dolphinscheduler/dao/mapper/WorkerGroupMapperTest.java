@@ -23,7 +23,7 @@ import org.apache.dolphinscheduler.dao.entity.WorkerGroup;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.Resource;
+import jakarta.annotation.Resource;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;

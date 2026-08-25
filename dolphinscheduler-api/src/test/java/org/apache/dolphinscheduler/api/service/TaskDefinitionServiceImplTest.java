@@ -406,7 +406,7 @@ public class TaskDefinitionServiceImplTest {
             when(taskDefinitionDao.queryByCode(TASK_CODE)).thenReturn(taskDefinition);
             when(taskDefinitionLogMapper.queryMaxVersionForDefinition(TASK_CODE)).thenReturn(1);
             when(taskDefinitionDao.updateById(Mockito.any())).thenReturn(true);
-            when(taskDefinitionLogMapper.insert(Mockito.any())).thenReturn(1);
+            when(taskDefinitionLogMapper.insert(Mockito.any(TaskDefinitionLog.class))).thenReturn(1);
 
             when(taskDefinitionDao.queryByCodes(Mockito.anySet()))
                     .thenReturn(Arrays.asList(taskDefinition, taskDefinitionSecond));

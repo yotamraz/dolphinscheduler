@@ -36,7 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import com.amazonaws.services.elasticmapreduce.AmazonElasticMapReduce;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 
 /**
  * ERM Task abstract base class
@@ -63,7 +63,7 @@ public abstract class AbstractEmrTask extends AbstractRemoteTask {
             .configure(READ_UNKNOWN_ENUM_VALUES_AS_NULL, true)
             .configure(REQUIRE_SETTERS_FOR_GETTERS, true)
             .setTimeZone(SystemConstants.DEFAULT_TIME_ZONE)
-            .setPropertyNamingStrategy(new PropertyNamingStrategy.UpperCamelCaseStrategy());
+            .setPropertyNamingStrategy(PropertyNamingStrategies.UPPER_CAMEL_CASE);
 
     /**
      * constructor

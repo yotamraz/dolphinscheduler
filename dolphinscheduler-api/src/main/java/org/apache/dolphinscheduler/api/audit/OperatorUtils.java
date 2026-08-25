@@ -73,8 +73,10 @@ public class OperatorUtils {
         String[] strings = signature.getParameterNames();
 
         Map<String, Object> paramsMap = new HashMap<>();
-        for (int i = 0; i < strings.length; i++) {
-            paramsMap.put(strings[i], args[i]);
+        if (strings != null) {
+            for (int i = 0; i < strings.length; i++) {
+                paramsMap.put(strings[i], args[i]);
+            }
         }
 
         return paramsMap;

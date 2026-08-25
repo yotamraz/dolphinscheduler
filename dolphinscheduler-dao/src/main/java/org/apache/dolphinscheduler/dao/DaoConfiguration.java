@@ -55,7 +55,7 @@ public class DaoConfiguration {
     public DaoPluginConfiguration daoPluginConfiguration;
 
     @Bean
-    public MybatisPlusInterceptor paginationInterceptor(DbType dbType) {
+    public MybatisPlusInterceptor mybatisPlusInterceptor(DbType dbType) {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor(dbType));
         return interceptor;

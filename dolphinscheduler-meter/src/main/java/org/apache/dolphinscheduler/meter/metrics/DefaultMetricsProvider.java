@@ -38,8 +38,28 @@ public class DefaultMetricsProvider implements MetricsProvider {
 
     private double lastSystemCpuUsage = 0.0d;
     private double lastProcessCpuUsage = 0.0d;
+    private double lastDiskTotalBytes = 1.0d;
+    private double lastDiskFreeBytes = 1.0d;
 
     private static final long SYSTEM_METRICS_REFRESH_INTERVAL = 1_000L;
+
+    /**
+     * Safely reads a gauge value from the registry by name.
+     * Uses {@code find()} instead of {@code get()} to avoid {@code MeterNotFoundException}
+     * when the meter has not been bound yet (e.g. during early Spring Boot startup before
+     * Micrometer's {@code ProcessorMetrics} or {@code DiskSpaceMetrics} binders run).
+     *
+     * @param name meter name
+     * @param fallback value to return when the meter is not yet registered or returns NaN
+     */
+    private double gaugeOrFallback(String name, double fallback) {
+        io.micrometer.core.instrument.Gauge gauge = meterRegistry.find(name).gauge();
+        if (gauge == null) {
+            return fallback;
+        }
+        double value = gauge.value();
+        return Double.isNaN(value) ? fallback : value;
+    }
 
     @Override
     public SystemMetrics getSystemMetrics() {
@@ -47,18 +67,11 @@ public class DefaultMetricsProvider implements MetricsProvider {
             return systemMetrics;
         }
 
-        double systemCpuUsage = meterRegistry.get("system.cpu.usage").gauge().value();
-        if (Double.compare(systemCpuUsage, Double.NaN) == 0) {
-            systemCpuUsage = lastSystemCpuUsage;
-        } else {
-            lastSystemCpuUsage = systemCpuUsage;
-        }
-        double processCpuUsage = meterRegistry.get("process.cpu.usage").gauge().value();
-        if (Double.compare(processCpuUsage, Double.NaN) == 0) {
-            processCpuUsage = lastProcessCpuUsage;
-        } else {
-            lastProcessCpuUsage = processCpuUsage;
-        }
+        double systemCpuUsage = gaugeOrFallback("system.cpu.usage", lastSystemCpuUsage);
+        lastSystemCpuUsage = systemCpuUsage;
+
+        double processCpuUsage = gaugeOrFallback("process.cpu.usage", lastProcessCpuUsage);
+        lastProcessCpuUsage = processCpuUsage;
 
         // Calculate JVM memory usage and maximum values
         double jvmHeapUsed = calculateTotalMemory(meterRegistry, "heap", "jvm.memory.used");
@@ -77,8 +90,10 @@ public class DefaultMetricsProvider implements MetricsProvider {
         long totalSystemMemory = OSUtils.getTotalSystemMemory();
         long systemMemoryAvailable = OSUtils.getSystemAvailableMemoryUsed();
 
-        double diskToTalBytes = meterRegistry.get("disk.total").gauge().value();
-        double diskFreeBytes = meterRegistry.get("disk.free").gauge().value();
+        double diskToTalBytes = gaugeOrFallback("disk.total", lastDiskTotalBytes);
+        lastDiskTotalBytes = diskToTalBytes;
+        double diskFreeBytes = gaugeOrFallback("disk.free", lastDiskFreeBytes);
+        lastDiskFreeBytes = diskFreeBytes;
 
         systemMetrics = SystemMetrics.builder()
                 .systemCpuUsagePercentage(systemCpuUsage)
@@ -92,7 +107,7 @@ public class DefaultMetricsProvider implements MetricsProvider {
                 .jvmMemoryUsedPercentage(jvmMemoryUsedPercentage)
                 .systemMemoryUsed(totalSystemMemory - systemMemoryAvailable)
                 .systemMemoryMax(totalSystemMemory)
-                .systemMemoryUsedPercentage((double) (totalSystemMemory - systemMemoryAvailable) / totalSystemMemory)
+                .systemMemoryUsedPercentage(totalSystemMemory > 0 ? (double) (totalSystemMemory - systemMemoryAvailable) / totalSystemMemory : 0.0)
                 .diskUsed(diskToTalBytes - diskFreeBytes)
                 .diskTotal(diskToTalBytes)
                 .diskUsedPercentage((diskToTalBytes - diskFreeBytes) / diskToTalBytes)

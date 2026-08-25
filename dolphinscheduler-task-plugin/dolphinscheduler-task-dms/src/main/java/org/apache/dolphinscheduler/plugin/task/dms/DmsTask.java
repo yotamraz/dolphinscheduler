@@ -40,7 +40,7 @@ import lombok.extern.slf4j.Slf4j;
 import com.amazonaws.services.databasemigrationservice.model.InvalidResourceStateException;
 import com.amazonaws.services.databasemigrationservice.model.ReplicationTask;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 
 @Slf4j
@@ -52,7 +52,7 @@ public class DmsTask extends AbstractRemoteTask {
                     .configure(ACCEPT_EMPTY_ARRAY_AS_NULL_OBJECT, true)
                     .configure(READ_UNKNOWN_ENUM_VALUES_AS_NULL, true)
                     .configure(REQUIRE_SETTERS_FOR_GETTERS, true)
-                    .propertyNamingStrategy(new PropertyNamingStrategy.UpperCamelCaseStrategy())
+                    .propertyNamingStrategy(PropertyNamingStrategies.UPPER_CAMEL_CASE)
                     .build();
     private final TaskExecutionContext taskExecutionContext;
     public DmsHook dmsHook;

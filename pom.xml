@@ -64,12 +64,11 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring.boot.version>2.6.1</spring.boot.version>
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
         <junit.version>5.9.0</junit.version>
         <mockito.version>3.12.4</mockito.version>
         <spotbugs.version>3.1.12</spotbugs.version>
-        <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
+        <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
         <maven-assembly-plugin.version>3.3.0</maven-assembly-plugin.version>
         <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
         <maven-source-plugin.version>2.4</maven-source-plugin.version>
@@ -77,7 +76,7 @@
         <maven-dependency-plugin.version>3.1.1</maven-dependency-plugin.version>
         <maven-shade-plugin.version>3.3.0</maven-shade-plugin.version>
         <rpm-maven-plugion.version>2.2.0</rpm-maven-plugion.version>
-        <aspectj-maven-plugin.version>1.14.0</aspectj-maven-plugin.version>
+        <aspectj-maven-plugin.version>1.15.0</aspectj-maven-plugin.version>
         <spotless.version>2.27.2</spotless.version>
         <jacoco.version>0.8.14</jacoco.version>
         <sonar.maven.plugin.version>5.3.0.6276</sonar.maven.plugin.version>
@@ -104,6 +103,8 @@
         <analyze.skip>false</analyze.skip>
 
         <skipUT>false</skipUT>
+        <io.grpc.version>1.71.0</io.grpc.version>
+        <protoc.version>3.25.5</protoc.version>
     </properties>
 
     <dependencyManagement>
@@ -341,6 +342,13 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-inline</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
 
     </dependencyManagement>
@@ -390,7 +398,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
-            <version>${spring.boot.version}</version>
+            <version>3.5.16</version>
             <optional>true</optional>
         </dependency>
         <dependency>
@@ -434,9 +442,7 @@
                     <artifactId>aspectj-maven-plugin</artifactId>
                     <version>${aspectj-maven-plugin.version}</version>
                     <configuration>
-                        <complianceLevel>${java.version}</complianceLevel>
-                        <source>${java.version}</source>
-                        <target>${java.version}</target>
+                        <complianceLevel>17</complianceLevel>
                         <showWeaveInfo>true</showWeaveInfo>
                         <verbose>true</verbose>
                         <Xlint>ignore</Xlint>
@@ -450,6 +456,14 @@
                             </goals>
                         </execution>
                     </executions>
+                    <dependencies>
+                        <!-- Override bundled AspectJ 1.9.7 with 1.9.22.1 which supports Java 17 -->
+                        <dependency>
+                            <groupId>org.aspectj</groupId>
+                            <artifactId>aspectjtools</artifactId>
+                            <version>1.9.22.1</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
 
                 <plugin>
@@ -457,10 +471,9 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${maven-compiler-plugin.version}</version>
                     <configuration>
-                        <source>${java.version}</source>
-                        <target>${java.version}</target>
-                        <testSource>${java.version}</testSource>
-                        <testTarget>${java.version}</testTarget>
+                        <release>17</release>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                        <parameters>true</parameters>
                     </configuration>
                 </plugin>
 
@@ -596,9 +609,9 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <release>17</release>
                     <encoding>${project.build.sourceEncoding}</encoding>
+                    <parameters>true</parameters>
                 </configuration>
             </plugin>
             <plugin>

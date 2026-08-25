@@ -25,7 +25,7 @@ import org.apache.dolphinscheduler.dao.entity.User;
 
 import java.security.MessageDigest;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import lombok.NonNull;
 
