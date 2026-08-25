@@ -40,7 +40,7 @@
         <jetcd.version>0.5.11</jetcd.version>
         <!-- todo: Should upgrade the jetcd.test, 0.7.1 doesn't support arm -->
         <jetcd.test.version>0.7.1</jetcd.test.version>
-        <io.grpc.version>1.41.0</io.grpc.version>
+        <io.grpc.version>1.71.0</io.grpc.version>
         <commons-text.version>1.4</commons-text.version>
         <commons-codec.version>1.11</commons-codec.version>
         <commons-logging.version>1.1.1</commons-logging.version>
@@ -110,7 +110,7 @@
         <fabric8.client.version>6.0.0</fabric8.client.version>
         <casdoor.version>1.6.0</casdoor.version>
         <azure-sdk-bom.version>1.2.10</azure-sdk-bom.version>
-        <protobuf.version>3.17.2</protobuf.version>
+        <protobuf.version>3.25.5</protobuf.version>
         <esdk-obs.version>3.23.3</esdk-obs.version>
         <qcloud-cos.version>5.6.231</qcloud-cos.version>
         <system-lambda.version>1.2.1</system-lambda.version>
@@ -121,7 +121,7 @@
         <aliyun-voice.version>2.1.4</aliyun-voice.version>
         <nashorn-sandbox.version>0.3.2</nashorn-sandbox.version>
         <brace-expansion.version>2.0.1</brace-expansion.version>
-        <protoc.version>3.17.3</protoc.version>
+        <protoc.version>3.25.5</protoc.version>
         <j2objc.version>1.3</j2objc.version>
         <guice.version>7.0.0</guice.version>
         <jsr305.version>3.0.0</jsr305.version>

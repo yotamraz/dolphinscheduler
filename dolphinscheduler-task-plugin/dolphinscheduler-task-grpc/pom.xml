@@ -29,8 +29,6 @@
 
     <properties>
         <plugin.name>task.grpc</plugin.name>
-        <protoc.version>3.17.3</protoc.version>
-        <grpc.version>1.71.0</grpc.version>
     </properties>
 
     <dependencies>
@@ -257,7 +255,7 @@
                     <clearOutputDirectory>false</clearOutputDirectory>
                     <protocArtifact>com.google.protobuf:protoc:${protoc.version}:exe:${os.detected.classifier}</protocArtifact>
                     <pluginId>grpc-java</pluginId>
-                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
+                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:${io.grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
                     <protoSourceRoot>${project.basedir}/src/test/proto</protoSourceRoot>
                     <outputDirectory>${project.basedir}/target/generated-test-sources/protobuf/java/</outputDirectory>
                 </configuration>
