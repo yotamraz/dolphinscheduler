@@ -103,6 +103,8 @@
         <analyze.skip>false</analyze.skip>
 
         <skipUT>false</skipUT>
+        <io.grpc.version>1.71.0</io.grpc.version>
+        <protoc.version>3.25.5</protoc.version>
     </properties>
 
     <dependencyManagement>
@@ -396,6 +398,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
+            <version>3.5.16</version>
             <optional>true</optional>
         </dependency>
         <dependency>

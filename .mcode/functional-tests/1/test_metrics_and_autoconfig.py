@@ -9,7 +9,7 @@ Verifies:
 import os
 import requests
 
-from conftest import BASE_URL
+from conftest import BASE_URL, HEALTH_URL
 
 METRICS_URL = f"{BASE_URL}/actuator/metrics"
 

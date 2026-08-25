@@ -7,7 +7,7 @@ Verifies:
 """
 import requests
 
-from conftest import BASE_URL
+from conftest import BASE_URL, HEALTH_URL, LOGIN_URL, ADMIN_USER, ADMIN_PASS
 
 
 class TestDatabaseInitialization:
