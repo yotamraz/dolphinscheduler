@@ -8,21 +8,13 @@ Verifies:
 """
 import os
 import requests
-import pytest
 
-BASE_URL = "http://localhost:12345/dolphinscheduler"
-HEALTH_URL = f"{BASE_URL}/actuator/health"
+from conftest import BASE_URL
+
 METRICS_URL = f"{BASE_URL}/actuator/metrics"
 
 WORKSPACE_DIR = os.environ.get("WORKSPACE_DIR", "/l2l/workspace")
 DS_ROOT = os.path.join(WORKSPACE_DIR, "dolphinscheduler")
-
-
-@pytest.fixture(autouse=True)
-def app_is_reachable():
-    """Confirm the app is reachable before running tests."""
-    resp = requests.get(HEALTH_URL, timeout=10)
-    assert resp.status_code == 200, f"App is not reachable: {resp.status_code}"
 
 
 class TestActuatorMetrics:

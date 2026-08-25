@@ -3,17 +3,8 @@ Functional tests for DolphinScheduler Standalone Server health endpoint.
 Verifies that all 5 components (api, master, worker, alert, db) report UP.
 """
 import requests
-import pytest
 
-BASE_URL = "http://localhost:12345/dolphinscheduler"
-HEALTH_URL = f"{BASE_URL}/actuator/health"
-
-
-@pytest.fixture(autouse=True)
-def app_is_reachable():
-    """Confirm the app is reachable before running tests."""
-    resp = requests.get(HEALTH_URL, timeout=10)
-    assert resp.status_code == 200, f"App is not reachable: {resp.status_code}"
+from conftest import HEALTH_URL
 
 
 class TestHealthcheckEndpoint:
