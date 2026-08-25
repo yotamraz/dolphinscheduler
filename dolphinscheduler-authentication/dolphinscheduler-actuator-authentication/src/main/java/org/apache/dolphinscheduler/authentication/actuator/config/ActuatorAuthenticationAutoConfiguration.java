@@ -30,6 +30,7 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -69,7 +70,7 @@ public class ActuatorAuthenticationAutoConfiguration {
                 "Initialize ActuatorSecurityConfiguration, management.security.enabled: {}, management.security.exclude: {}",
                 properties.isEnabled(), properties.getExclude());
         // Restrict this security configuration to requests starting with actuator paths
-        http.requestMatcher(request -> request.getRequestURI().startsWith(ACTUATOR_PATH_PATTERN_1) ||
+        http.securityMatcher(request -> request.getRequestURI().startsWith(ACTUATOR_PATH_PATTERN_1) ||
                 request.getRequestURI().startsWith(ACTUATOR_PATH_PATTERN_2));
 
         if (properties.isEnabled()) {
@@ -88,14 +89,14 @@ public class ActuatorAuthenticationAutoConfiguration {
                 // All other actuator requests require the ACTUATOR role
                 authz.anyRequest().hasRole(ROLE_ACTUATOR);
             })
-                    .httpBasic(); // Use HTTP Basic authentication for secured endpoints
+                    .httpBasic(Customizer.withDefaults()); // Use HTTP Basic authentication for secured endpoints
         } else {
             // If security is disabled, allow all requests to actuator endpoints
             http.authorizeHttpRequests(authz -> authz.anyRequest().permitAll());
         }
 
         // Disable CSRF for actuator endpoints as they are typically accessed by scripts or monitoring tools
-        http.csrf().disable();
+        http.csrf(csrf -> csrf.disable());
 
         return http.build();
     }
