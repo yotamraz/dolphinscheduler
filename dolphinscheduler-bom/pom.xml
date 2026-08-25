@@ -96,7 +96,7 @@
         <htrace.version>4.1.1</htrace.version>
         <datasync.version>2.17.282</datasync.version>
         <springdoc-openapi.version>2.9.0</springdoc-openapi.version>
-        <aspectj.version>1.9.7</aspectj.version>
+        <aspectj.version>1.9.22.1</aspectj.version>
         <trino-jdbc.version>402</trino-jdbc.version>
         <azure-identity.version>1.7.1</azure-identity.version>
         <redshift-jdbc42.version>2.1.0.9</redshift-jdbc42.version>

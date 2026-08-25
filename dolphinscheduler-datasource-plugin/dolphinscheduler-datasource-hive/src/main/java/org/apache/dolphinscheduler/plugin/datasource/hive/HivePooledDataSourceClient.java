@@ -27,11 +27,10 @@ import org.apache.dolphinscheduler.plugin.datasource.hive.security.UserGroupInfo
 import org.apache.dolphinscheduler.spi.datasource.BaseConnectionParam;
 import org.apache.dolphinscheduler.spi.enums.DbType;
 
-import sun.security.krb5.Config;
-
 import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -59,11 +58,20 @@ public class HivePooledDataSourceClient extends BasePooledDataSourceClient {
         if (kerberosStartupState && StringUtils.isNotBlank(krb5File)) {
             System.setProperty(JAVA_SECURITY_KRB5_CONF, krb5File);
             try {
-                Config.refresh();
+                // Use reflection to access sun.security.krb5.Config to avoid compile-time
+                // dependency on the internal JDK class (incompatible with --release 17)
+                Class<?> krb5ConfigClass = Class.forName("sun.security.krb5.Config");
+                Method refreshMethod = krb5ConfigClass.getMethod("refresh");
+                refreshMethod.invoke(null);
+                Method getInstanceMethod = krb5ConfigClass.getMethod("getInstance");
+                Object krb5Config = getInstanceMethod.invoke(null);
+                Method getDefaultRealmMethod = krb5ConfigClass.getMethod("getDefaultRealm");
+                String defaultRealm = (String) getDefaultRealmMethod.invoke(krb5Config);
+
                 Class<?> kerberosName = Class.forName("org.apache.hadoop.security.authentication.util.KerberosName");
                 Field field = kerberosName.getDeclaredField("defaultRealm");
                 field.setAccessible(true);
-                field.set(null, Config.getInstance().getDefaultRealm());
+                field.set(null, defaultRealm);
             } catch (Exception e) {
                 throw new RuntimeException("Update Kerberos environment failed.", e);
             }
